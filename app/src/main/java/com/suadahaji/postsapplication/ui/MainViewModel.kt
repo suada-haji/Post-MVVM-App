@@ -15,24 +15,26 @@ class MainViewModel(private val client: RetrofitClient = RetrofitClient()) : Vie
     val status: LiveData<NetworkState>
         get() = _status
 
-    fun getPosts(): LiveData<List<Post>> {
+    private var _posts = MutableLiveData<List<Post>>()
+    val posts: LiveData<List<Post>>
+        get() = _posts
+
+    fun getPosts() {
        _status.value = NetworkState.LOADING
-        val data = MutableLiveData<List<Post>>()
 
         viewModelScope.launch {
             try {
                 val result = client.apiService.getPosts()
                 if (result.isSuccessful) {
-                    data.value = result.body()
                     _status.value = NetworkState.SUCCESS
+                    _posts.value = result.body()
                 } else {
-                    data.value = null
                     _status.value = NetworkState.error(result.message())
+                    _posts.value = null
                 }
             } catch (error: IOException) {
                 _status.value = NetworkState.error(error.message)
             }
         }
-        return data
     }
 }
