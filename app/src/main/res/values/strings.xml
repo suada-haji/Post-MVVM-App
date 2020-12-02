@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Posts</string>
+    <string name="retry_label">Retry</string>
+    <string name="no_internet">Please check your internet settings</string>
 </resources>
