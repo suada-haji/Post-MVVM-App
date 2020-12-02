@@ -10,7 +10,7 @@ import com.suadahaji.postsapplication.utils.NetworkState
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class MainViewModel(private val client: RetrofitClient = RetrofitClient()) : ViewModel() {
+class PostListViewModel(private val client: RetrofitClient = RetrofitClient()) : ViewModel() {
     private var _status = MutableLiveData<NetworkState>()
     val status: LiveData<NetworkState>
         get() = _status
